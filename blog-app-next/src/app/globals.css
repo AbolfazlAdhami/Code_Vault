@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+body {
+  @apply bg-white text-gray-700 container mx-auto dark:bg-slate-900 dark:text-gray-300 max-w-2xl;
+}
+
+hr {
+  @apply my-8 border-gray-200 dark:border-gray-800;
+}
+
+.link {
+  @apply md:p-1 hover:bg-gray-200 hover:text-gray-700 text-2xl md:text-base;
+}
