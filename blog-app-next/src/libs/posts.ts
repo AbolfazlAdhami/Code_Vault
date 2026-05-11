@@ -5,8 +5,8 @@ import H1 from "@/components/h1";
 
 export function loadPost(slug) {
   const filename = slug.endsWith(".mdx") ? slug : `${slug}.mdx`;
-
-  return fs.readFileSync(path.join(process.cwd(), "content", filename));
+  console.log(filename);
+  return fs.readFileSync(path.join(process.cwd(), "src/contents", filename));
 }
 
 export async function getPost(slug) {
@@ -24,7 +24,7 @@ export async function getPost(slug) {
 }
 
 export async function getPosts({ newest = true, page = 1, limit = 3, tags } = {}) {
-  const files = fs.readdirSync(path.join(process.cwd(), "content"));
+  const files = fs.readdirSync(path.join(process.cwd(), "src/contents"));
 
   const posts = await Promise.all(
     files.map(async (filename) => {
