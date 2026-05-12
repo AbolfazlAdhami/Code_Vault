@@ -5,7 +5,6 @@ import H1 from "@/components/h1";
 
 export function loadPost(slug) {
   const filename = slug.endsWith(".mdx") ? slug : `${slug}.mdx`;
-  console.log(filename);
   return fs.readFileSync(path.join(process.cwd(), "src/contents", filename));
 }
 
