@@ -6,9 +6,9 @@ There is place for all my projects, and I will keep adding more as I work on the
 
 - **BLOG-APP-NEXT**
 - **DRAG AND DROP APP**
+- **EXPRESS-TS**
 - **MAPS**
 - **NEXTJS-FINANCE-APP**
-- **SORT**
 - **STATS**
 - **TYPESCRIPT-SOURCE**
 - **WEBPACK-TYPESCRIPT**
