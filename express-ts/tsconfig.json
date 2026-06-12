@@ -2,13 +2,13 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    // "rootDir": "./src",
-    // "outDir": "./dist",
+    "rootDir": "./src",
+    "outDir": "./build",
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
-    "target": "esnext",
+    "module": "commonjs",
+    "target": "es2016",
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
@@ -19,6 +19,8 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
@@ -32,10 +34,12 @@
     // "noFallthroughCasesInSwitch": true,
     // "noPropertyAccessFromIndexSignature": true,
 
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     // Recommended Options
     "strict": true,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
+    // "jsx": "react-jsx",
+    // "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",

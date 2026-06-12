@@ -7,9 +7,23 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/index.js",
+    "start": "concurrently npm:start:*"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "@types/body-parser": "^1.19.6",
+    "@types/cookie-session": "^2.0.49",
+    "@types/express": "^5.0.6",
+    "body-parser": "^2.2.2",
+    "concurrently": "^10.0.3",
+    "cookie-session": "^2.1.1",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3"
   }
 }
