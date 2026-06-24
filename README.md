@@ -9,6 +9,8 @@ There is place for all my projects, and I will keep adding more as I work on the
 - **EXPRESS-TS**
 - **MAPS**
 - **NEXTJS-FINANCE-APP**
+- **REACT-FUNCTIONAL-TS**
+- **REACT-REDUX-TS**
 - **STATS**
 - **TYPESCRIPT-SOURCE**
 - **WEBPACK-TYPESCRIPT**
