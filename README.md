@@ -7,10 +7,12 @@ There is place for all my projects, and I will keep adding more as I work on the
 - **BLOG-APP-NEXT**
 - **DRAG AND DROP APP**
 - **EXPRESS-TS**
+- **GO**
 - **MAPS**
 - **NEXTJS-FINANCE-APP**
 - **REACT-FUNCTIONAL-TS**
 - **REACT-REDUX-TS**
+- **REDUX-TS**
 - **STATS**
 - **TYPESCRIPT-SOURCE**
 - **WEBPACK-TYPESCRIPT**
