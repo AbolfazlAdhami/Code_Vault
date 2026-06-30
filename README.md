@@ -11,9 +11,11 @@ There is place for all my projects, and I will keep adding more as I work on the
 - **GO-TODO-API**
 - **MAPS**
 - **NEXTJS-FINANCE-APP**
+- **PYTHON**
 - **REACT-FUNCTIONAL-TS**
 - **REACT-REDUX-TS**
 - **REDUX-TS**
 - **STATS**
 - **TYPESCRIPT-SOURCE**
+- **WEBFREAMWORK-BASIC**
 - **WEBPACK-TYPESCRIPT**
