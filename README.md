@@ -8,6 +8,7 @@ There is place for all my projects, and I will keep adding more as I work on the
 - **DRAG AND DROP APP**
 - **EXPRESS-TS**
 - **GO**
+- **GO-TODO-API**
 - **MAPS**
 - **NEXTJS-FINANCE-APP**
 - **REACT-FUNCTIONAL-TS**
