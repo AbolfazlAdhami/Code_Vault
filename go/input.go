@@ -18,5 +18,4 @@ func main() {
 	} else {
 		fmt.Println("Value of number: ", f)
 	}
-	
 }

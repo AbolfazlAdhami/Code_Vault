@@ -14,6 +14,6 @@ func main() {
 }
 
 type Dog struct {
-	Breed string
+	Breed  string
 	Weight int
 }
