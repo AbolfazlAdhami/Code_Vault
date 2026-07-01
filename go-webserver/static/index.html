@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Go Web Server</title>
+</head>
+<body>
+
+<h1>Welcome to Go Web Server</h1>
+
+<form action="/form" method="POST">
+    <label>Name</label><br>
+    <input
+        type="text"
+        name="name"
+        placeholder="Enter your name"
+    >
+    <br><br>
+
+    <label>Email</label><br>
+    <input
+        type="email"
+        name="email"
+        placeholder="Enter your email"
+    >
+    <br><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+<br>
+
+<a href="/user">Get Mock User (JSON)</a>
+
+</body>
+</html>
