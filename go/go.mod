@@ -1,3 +1,3 @@
-module output_text.go
+module example.com/go-main
 
 go 1.26.4
