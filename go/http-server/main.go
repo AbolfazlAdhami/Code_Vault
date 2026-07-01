@@ -13,7 +13,7 @@ const url = "http://services.explorecalifornia.org/json/tours.php"
 
 func main() {
 	content := readHttpContent()
-	// fmt.Print(content)
+	fmt.Print(content)
 	tours := toursFromJSON(content)
 	for _, tour := range tours {
 		price, _ := strconv.ParseFloat(tour.Price, 16)
@@ -22,7 +22,6 @@ func main() {
 }
 
 func toursFromJSON(content string) []Tour {
-
 	tours := make([]Tour, 0)
 	decoder := json.NewDecoder(strings.NewReader(content))
 	_, err := decoder.Token()
@@ -54,7 +53,6 @@ func readHttpContent() string {
 	bytes, err := io.ReadAll(resp.Body)
 	checkError(err)
 	return string(bytes)
-
 }
 
 func checkError(err error) {
