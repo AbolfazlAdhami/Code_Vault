@@ -1,6 +1,19 @@
-// console.log("Hello ");
+import { Collection } from "./models/Collection";
+import { User, UserProps } from "./models/User";
+import { UserList } from "./views/UserList";
 
+const users = new Collection("http://localhost:3000/users", (json: UserProps) => {
+  return User.buildUser(json);
+});
 
-// const users=new Collect
+users.on("change", () => {
+  console.log(users.models);
 
+  const root = document.getElementById("root");
+  if (root) {
+    new UserList(root, users).render();
+    // new UserForm(root, User.buildUserCollection(users.models)).render();
+  }
+});
 
+users.fetch();

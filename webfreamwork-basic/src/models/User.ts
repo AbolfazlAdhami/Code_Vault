@@ -4,7 +4,7 @@ import { Attributes } from "./Attributes";
 import { Model } from "./Model";
 import { Sync } from "./Sync";
 
-interface UserProps {
+export interface UserProps {
   id?: number;
   name?: string;
   age?: number;
