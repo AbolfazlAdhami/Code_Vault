@@ -1,4 +1,4 @@
-import { sizes, variants } from "@/lib/variants";
+import { sizes, variants } from "@/libs/variants";
 
 interface ButtonPropsType {
   variant?: keyof typeof variants;
