@@ -8,13 +8,13 @@ import { SignOutButton } from "./SignOutButton";
 import { Avatar } from "./avatar";
 // TODO: fix useServerDark mode
 
-export const PageHeader = async ({ className }: { className: string }) => {
+export const PageHeader = async ({ className }: { className?: string }) => {
   const theme = useServerDarkMode();
-  const supabase = createClient();
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
+  // const supabase = createClient();
+  // const {
+  //   data: { user },
+  //   error,
+  // } = await supabase.auth.getUser();
   return (
     <header className={`flex justify-between items-center ${className}`}>
       <Link href="/dashboard" className="text-xl hover:underline underline-offset-8 decoration-2">

@@ -1,7 +1,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import useServerDarkMode from "@/hooks/useServerDarkMode";
 
 const inter = Inter({ subsets: ["latin"] });
+
 export const metadata = {
   title: {
     template: "%s | Finance App",
@@ -15,9 +17,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const theme = useServerDarkMode();
   return (
-    <html lang="en">
-      <body className={`${inter.className} min-h-screen antialiased`}>{children}</body>
+    <html lang="en" className={`${theme}`}>
+      <body className={`${inter.className} min-h-screen antialiased flex flex-col px-8`}>{children}</body>
     </html>
   );
 }
