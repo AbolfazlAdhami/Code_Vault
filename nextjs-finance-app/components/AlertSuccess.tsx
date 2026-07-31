@@ -1,4 +1,4 @@
-import { Alert } from "./alert";
+import { Alert } from "./Alert";
 import { Check } from "lucide-react";
 import { ReactNode } from "react";
 

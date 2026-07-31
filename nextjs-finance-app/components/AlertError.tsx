@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Alert } from "./alert";
+import { Alert } from "./Alert";
 import { Ban } from "lucide-react";
 
 export const AlertError = ({ children }: { children: ReactNode }) => {

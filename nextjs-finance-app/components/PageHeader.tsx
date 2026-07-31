@@ -5,7 +5,6 @@ import { KeyRound } from "lucide-react";
 import { sizes, variants } from "@/libs/variants";
 import { SignOutButton } from "./SignOutButton";
 import { Avatar } from "./avatar";
-// TODO: fix useServerDark mode
 
 export const PageHeader = async ({ className }: { className?: string }) => {
   const supabase = createClient();
