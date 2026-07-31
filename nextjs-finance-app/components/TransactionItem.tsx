@@ -4,8 +4,22 @@ import { TransactionItemRemoveButton } from "./TransactionItemRemoveButton";
 import Link from "next/link";
 import { sizes, variants } from "@/libs/variants";
 
-// TODO: Add type to this module
-export const TransactionItem = ({ id, type, category, description, amount, onRemoved }) => {
+enum TransactionType {
+  Income = "Income",
+  Expense = "Expense",
+  Saving = "Saving",
+  Investment = "Investment",
+}
+interface TransactionItemPropsType {
+  id: string;
+  type: TransactionType;
+  category?: string;
+  description?: string;
+  amount: number;
+  onRemoved?: () => void;
+}
+
+export const TransactionItem = ({ id, type, category, description, amount, onRemoved }: TransactionItemPropsType) => {
   const typesMap = {
     Income: {
       icon: HandCoins,
