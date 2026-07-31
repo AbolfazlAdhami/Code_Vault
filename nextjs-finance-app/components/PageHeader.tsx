@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { DarkModeToggle } from "./DarkModeToggle";
-import useServerDarkMode from "@/hooks/useServerDarkMode";
 import { createClient } from "@/libs/supabase/server";
 import { KeyRound } from "lucide-react";
 import { sizes, variants } from "@/libs/variants";
@@ -9,12 +8,11 @@ import { Avatar } from "./avatar";
 // TODO: fix useServerDark mode
 
 export const PageHeader = async ({ className }: { className?: string }) => {
-  const theme = useServerDarkMode();
-  // const supabase = createClient();
-  // const {
-  //   data: { user },
-  //   error,
-  // } = await supabase.auth.getUser();
+  const supabase = createClient();
+  const {
+    data: { user },
+    error,
+  } = await (await supabase).auth.getUser();
   return (
     <header className={`flex justify-between items-center ${className}`}>
       <Link href="/dashboard" className="text-xl hover:underline underline-offset-8 decoration-2">
@@ -22,7 +20,7 @@ export const PageHeader = async ({ className }: { className?: string }) => {
       </Link>
 
       <div className="flex items-center">
-        <DarkModeToggle defaultMode={theme} />
+        <DarkModeToggle />
         {user && (
           <Link href="/dashboard/settings" className={`flex items-center space-x-1 ${variants["ghost"]} ${sizes["sm"]}`}>
             <Avatar />

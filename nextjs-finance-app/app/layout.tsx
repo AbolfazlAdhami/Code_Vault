@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import useServerDarkMode from "@/hooks/useServerDarkMode";
-
+import CookieProvider from "@/components/CookieProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -20,7 +20,9 @@ export default function RootLayout({
   const theme = useServerDarkMode();
   return (
     <html lang="en" className={`${theme}`}>
-      <body className={`${inter.className} min-h-screen antialiased flex flex-col px-8`}>{children}</body>
+      <body className={`${inter.className} min-h-screen antialiased flex flex-col px-8`}>
+        <CookieProvider>{children}</CookieProvider>
+      </body>
     </html>
   );
 }

@@ -1,3 +1,12 @@
+interface TransactionType {
+  id: string;
+  type: TransactionType;
+  category?: string;
+  description?: string;
+  amount: number;
+  create_at: Date;
+}
+
 export const groupAndSumTransactionsByDate = (transactions) => {
   const grouped = {};
   for (const transaction of transactions) {

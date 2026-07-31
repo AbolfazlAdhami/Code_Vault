@@ -3,8 +3,8 @@ import { CircleUser } from "lucide-react";
 import Image from "next/image";
 
 interface Props {
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 }
 
 export const Avatar = async ({ width = 32, height = 32 }: Props) => {

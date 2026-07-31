@@ -1,3 +1,4 @@
+"use client";
 import { useFormatCurrency } from "@/hooks/useFormatCurrency";
 import { HandCoins, Wallet, Landmark, PiggyBank, Pencil } from "lucide-react";
 import { TransactionItemRemoveButton } from "./TransactionItemRemoveButton";
@@ -56,7 +57,7 @@ export const TransactionItem = ({ id, type, category, description, amount, onRem
         <Link href={`/dashboard/transaction/${id}/edit`} className={`${variants["ghost"]} ${sizes["xs"]}`}>
           <Pencil className="w-4 h-4" />
         </Link>
-        <TransactionItemRemoveButton id={id} onRemoved={onRemoved} />
+        <TransactionItemRemoveButton id={id} onRemoved={onRemoved ?? (() => {})} />
       </div>
     </div>
   );

@@ -4,10 +4,9 @@ import { Button } from "./button";
 import { X, Loader } from "lucide-react";
 import { useState } from "react";
 
-// TODO: Add type to this module
-export const TransactionItemRemoveButton = ({ id, onRemoved }) => {
-  const [loading, setLoading] = useState();
-  const [confirmed, setConfirmed] = useState();
+export const TransactionItemRemoveButton = ({ id, onRemoved }: { id: string; onRemoved: () => void }) => {
+  const [loading, setLoading] = useState<boolean>();
+  const [confirmed, setConfirmed] = useState<boolean>();
   const handleClick = async () => {
     if (!confirmed) {
       setConfirmed(true);

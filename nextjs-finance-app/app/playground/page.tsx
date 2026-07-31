@@ -22,7 +22,9 @@ export default function Page() {
       <div>
         <h2 className="mb-4 text-lg font-mono">PageHeader</h2>
         <Separator />
-        <div>{/* <PageHeader /> */}</div>
+        <div>
+          <PageHeader />
+        </div>
       </div>
 
       <div>
