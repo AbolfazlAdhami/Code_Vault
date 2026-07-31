@@ -1,7 +1,7 @@
 import { sizes, variants } from "@/libs/variants";
 import { ButtonHTMLAttributes } from "react";
 
-interface ButtonPropsType extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonPropsType extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: keyof typeof variants;
   size?: keyof typeof sizes;
   className?: string;

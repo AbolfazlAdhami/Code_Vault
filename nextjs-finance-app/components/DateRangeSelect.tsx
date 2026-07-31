@@ -1,6 +1,6 @@
-import Select from "@/components/select";
+import Select, { type SelectProps } from "./Select";
 
-export default function DateRangeSelect(props) {
+export const DateRangeSelect = (props: SelectProps) => {
   return (
     <Select {...props}>
       <option value="last24hours">Last 24 hours</option>
@@ -9,4 +9,4 @@ export default function DateRangeSelect(props) {
       <option value="last12months">Last 12 months</option>
     </Select>
   );
-}
+};
