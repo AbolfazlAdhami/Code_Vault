@@ -1,4 +1,4 @@
-import { Button, ButtonPropsType } from "./Button";
+import { Button, type ButtonPropsType } from "./button";
 import { useFormStatus } from "react-dom";
 import { Loader } from "lucide-react";
 

@@ -1,6 +1,6 @@
 "use client";
 import { deleteTransaction } from "@/libs/actions";
-import { Button } from "./Button";
+import { Button } from "./button";
 import { X, Loader } from "lucide-react";
 import { useState } from "react";
 
