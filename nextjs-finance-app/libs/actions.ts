@@ -1,16 +1,39 @@
 "use server";
+
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { z } from "zod";
+
 import { createClient } from "./supabase/server";
 import { transactionSchema } from "./validation";
-import { redirect } from "next/navigation";
 
-export async function createTransaction(formData) {
+// -----------------------------------------------------------------------------
+// Types
+// -----------------------------------------------------------------------------
+
+type ActionState = {
+  error?: boolean;
+  message?: string;
+};
+
+type TransactionInput = z.infer<typeof transactionSchema>;
+
+type TransactionRange = string;
+
+// -----------------------------------------------------------------------------
+// Transactions
+// -----------------------------------------------------------------------------
+
+export async function createTransaction(formData: TransactionInput): Promise<void> {
   const validated = transactionSchema.safeParse(formData);
+
   if (!validated.success) {
     throw new Error("Invalid data");
   }
 
-  const { error } = await createClient().from("transactions").insert(formData);
+  const supabase = await createClient();
+
+  const { error } = await supabase.from("transactions").insert(validated.data);
 
   if (error) {
     throw new Error("Failed creating the transaction");
@@ -19,92 +42,152 @@ export async function createTransaction(formData) {
   revalidatePath("/dashboard");
 }
 
-export async function updateTransaction(id, formData) {
+export async function updateTransaction(id: string, formData: TransactionInput): Promise<void> {
   const validated = transactionSchema.safeParse(formData);
+
   if (!validated.success) {
     throw new Error("Invalid data");
   }
 
-  const { error } = await createClient().from("transactions").update(formData).eq("id", id);
+  const supabase = await createClient();
+
+  const { error } = await supabase.from("transactions").update(validated.data).eq("id", id);
 
   if (error) {
-    throw new Error("Failed creating the transaction");
+    throw new Error("Failed updating the transaction");
   }
 
   revalidatePath("/dashboard");
 }
 
-export async function fetchTransactions(range, offset = 0, limit = 10) {
-  const supabase = createClient();
-  let { data, error } = await supabase.rpc("fetch_transactions", {
+export async function fetchTransactions(range: TransactionRange, offset = 0, limit = 10) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.rpc("fetch_transactions", {
     limit_arg: limit,
     offset_arg: offset,
     range_arg: range,
   });
-  if (error) throw new Error("We can't fetch transactions");
+
+  if (error) {
+    throw new Error("We can't fetch transactions");
+  }
+
   return data;
 }
 
-export async function deleteTransaction(id) {
-  const supabase = createClient();
+export async function deleteTransaction(id: string): Promise<void> {
+  const supabase = await createClient();
+
   const { error } = await supabase.from("transactions").delete().eq("id", id);
-  if (error) throw new Error(`Could not delete the transaction ${id}`);
+
+  if (error) {
+    throw new Error(`Could not delete the transaction ${id}`);
+  }
+
   revalidatePath("/dashboard");
 }
 
-export async function login(prevState, formData) {
-  const supabase = createClient();
+// -----------------------------------------------------------------------------
+// Authentication
+// -----------------------------------------------------------------------------
+
+export async function login(_prevState: ActionState, formData: FormData): Promise<ActionState> {
+  const supabase = await createClient();
+
   const email = formData.get("email");
-  const { error } = supabase.auth.signInWithOtp({
+
+  if (typeof email !== "string" || !email) {
+    return {
+      error: true,
+      message: "Email is required",
+    };
+  }
+
+  const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
       shouldCreateUser: true,
     },
   });
+
   if (error) {
     return {
       error: true,
       message: "Error authenticating!",
     };
   }
+
   return {
     message: `Email sent to ${email}`,
   };
 }
 
-export async function signOut() {
-  const supabase = createClient();
+export async function signOut(): Promise<never> {
+  const supabase = await createClient();
+
   const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    throw new Error("Failed to sign out");
+  }
+
   redirect("/login");
 }
 
-export async function uploadAvatar(prevState, formData) {
-  const supabase = createClient();
+// -----------------------------------------------------------------------------
+// Avatar
+// -----------------------------------------------------------------------------
+
+export async function uploadAvatar(_prevState: ActionState, formData: FormData): Promise<ActionState> {
+  const supabase = await createClient();
+
   const file = formData.get("file");
+
+  if (!(file instanceof File)) {
+    return {
+      error: true,
+      message: "Please select an image",
+    };
+  }
+
   const fileExt = file.name.split(".").pop();
-  const fileName = `${Math.random()}.${fileExt}`;
-  const { error } = await supabase.storage.from("avatars").upload(fileName, file);
-  if (error) {
+
+  if (!fileExt) {
+    return {
+      error: true,
+      message: "Invalid file",
+    };
+  }
+
+  const fileName = `${crypto.randomUUID()}.${fileExt}`;
+
+  const { error: uploadError } = await supabase.storage.from("avatars").upload(fileName, file);
+
+  if (uploadError) {
     return {
       error: true,
       message: "Error uploading avatar",
     };
   }
 
-  // Removing the old file
-  const { data: userData, userError } = await supabase.auth.getUser();
-  if (userError) {
+  // Get current user
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+
+  if (userError || !userData.user) {
     return {
       error: true,
       message: "Something went wrong, try again",
     };
   }
 
-  const avatar = userData.user.user_metadata.avatar;
-  if (avatar) {
-    const { error } = await supabase.storage.from("avatars").remove([avatar]);
+  // Remove old avatar
+  const avatar = userData.user.user_metadata?.avatar;
 
-    if (error) {
+  if (typeof avatar === "string" && avatar) {
+    const { error: removeError } = await supabase.storage.from("avatars").remove([avatar]);
+
+    if (removeError) {
       return {
         error: true,
         message: "Something went wrong, try again",
@@ -112,11 +195,13 @@ export async function uploadAvatar(prevState, formData) {
     }
   }
 
+  // Update user metadata
   const { error: dataUpdateError } = await supabase.auth.updateUser({
     data: {
       avatar: fileName,
     },
   });
+
   if (dataUpdateError) {
     return {
       error: true,
@@ -129,19 +214,34 @@ export async function uploadAvatar(prevState, formData) {
   };
 }
 
-export async function updateSettings(prevState, formData) {
-  const supabase = createClient();
+// -----------------------------------------------------------------------------
+// Settings
+// -----------------------------------------------------------------------------
+
+export async function updateSettings(_prevState: ActionState, formData: FormData): Promise<ActionState> {
+  const supabase = await createClient();
+
+  const fullName = formData.get("fullName");
+  const defaultView = formData.get("defaultView");
+
+  if (typeof fullName !== "string" || typeof defaultView !== "string") {
+    return {
+      error: true,
+      message: "Invalid settings",
+    };
+  }
+
   const { error } = await supabase.auth.updateUser({
     data: {
-      fullName: formData.get("fullName"),
-      defaultView: formData.get("defaultView"),
+      fullName,
+      defaultView,
     },
   });
 
   if (error) {
     return {
       error: true,
-      message: "Failed updating setting",
+      message: "Failed updating settings",
     };
   }
 
