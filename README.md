@@ -15,6 +15,7 @@ There is place for all my projects, and I will keep adding more as I work on the
 - **PYTHON**
 - **REACT-FUNCTIONAL-TS**
 - **REACT-REDUX-TS**
+- **REACT19-MOVIE-APP**
 - **REDUX-TS**
 - **STATS**
 - **TYPESCRIPT-SOURCE**
