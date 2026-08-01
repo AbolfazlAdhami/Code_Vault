@@ -9,7 +9,6 @@ import { TransactionItem } from "@/components/TransactionItem";
 import { TransactionSummaryItem } from "@/components/TransactionSummaryItem";
 import { Trend } from "@/components/Trend";
 
-
 export const metadata = {
   title: "Playground",
 };
