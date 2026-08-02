@@ -28,13 +28,13 @@ function TransactionItemSkeleton() {
       <div className="flex items-center grow">
         <Skeleton />
       </div>
-      <div className="min-w-[150px] items-center hidden md:flex">
+      <div className="min-w-37.5 items-center hidden md:flex">
         <Skeleton />
       </div>
-      <div className="min-w-[70px] text-right">
+      <div className="min-w-17.5 text-right">
         <Skeleton />
       </div>
-      <div className="min-w-[50px] flex justify-end">
+      <div className="min-w-12.5 flex justify-end">
         <Skeleton />
       </div>
     </div>
@@ -48,10 +48,10 @@ function TransactionSummaryItemSkeleton() {
         <Skeleton />
       </div>
 
-      <div className="min-w-[70px]">
+      <div className="min-w-17.5">
         <Skeleton />
       </div>
-      <div className="min-w-[50px]"></div>
+      <div className="min-w-12.5"></div>
     </div>
   );
 }

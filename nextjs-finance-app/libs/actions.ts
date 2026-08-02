@@ -70,6 +70,7 @@ export async function fetchTransactions(range: TransactionRange, offset = 0, lim
   });
 
   if (error) {
+    console.log(error);
     throw new Error("We can't fetch transactions");
   }
 
@@ -82,6 +83,8 @@ export async function deleteTransaction(id: string): Promise<void> {
   const { error } = await supabase.from("transactions").delete().eq("id", id);
 
   if (error) {
+    console.log(error);
+
     throw new Error(`Could not delete the transaction ${id}`);
   }
 
