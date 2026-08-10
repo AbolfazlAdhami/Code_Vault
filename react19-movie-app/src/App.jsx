@@ -51,7 +51,6 @@ const App = () => {
       }
 
       setMovieList(data.results || []);
-      console.log(query, "queries", data.results);
       if (query && data.results.length > 0) {
         await updateSearchCount(query, data.results[0]);
       }
@@ -71,7 +70,6 @@ const App = () => {
   const loadTrendingMovies = async () => {
     try {
       const movies = await getTrendingMovies();
-      console.log(movies, "Movies");
       setTrendingMovies(movies);
     } catch (error) {
       console.error(`Error fetching trending movies: ${error}`);
