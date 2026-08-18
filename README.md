@@ -7,6 +7,7 @@ There is place for all my projects, and I will keep adding more as I work on the
 - **DESIGN PATTERNS**
 - **BLOG-APP-NEXT**
 - **DRAG AND DROP APP**
+- **ECOMM**
 - **EXPRESS-TS**
 - **GO**
 - **GO-TODO-API**
