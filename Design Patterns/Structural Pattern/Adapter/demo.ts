@@ -1,0 +1,82 @@
+interface StandardUser {
+  fullName: string;
+  skills: Array<string>;
+  age: number;
+  contact: {
+    email: string;
+    phone: string;
+  };
+}
+
+// The third-party service we cannot change: it only understands `StandardUser`.
+class ResumeServiceApi {
+  static generateResume(data: StandardUser): string {
+    /* Implementation */
+    return `Resume of ${data.fullName}`;
+  }
+}
+
+class User {
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly birthday: Date;
+  readonly skills: Record<string, 1 | 2 | 3 | 4 | 5>;
+  readonly email?: string;
+  readonly phone?: string;
+
+  constructor({ firstName, lastName, birthday, skills, email, phone }: { firstName: string; lastName: string; birthday: Date; skills: Record<string, 1 | 2 | 3 | 4 | 5>; email?: string; phone?: string }) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.birthday = birthday;
+    this.skills = skills;
+    this.email = email;
+    this.phone = phone;
+  }
+}
+
+class UserAdapter implements StandardUser {
+  private user: User;
+
+  constructor(user: User) {
+    this.user = user;
+  }
+
+  get fullName() {
+    return `${this.user.firstName} ${this.user.lastName}`;
+  }
+
+  get skills() {
+    return Object.keys(this.user.skills);
+  }
+
+  get age() {
+    const today = new Date();
+    const birthday = this.user.birthday;
+    const age = today.getFullYear() - birthday.getFullYear();
+    const hasHadBirthdayThisYear = today.getMonth() > birthday.getMonth() || (today.getMonth() === birthday.getMonth() && today.getDate() >= birthday.getDate());
+
+    return hasHadBirthdayThisYear ? age : age - 1;
+  }
+
+  get contact() {
+    return { email: this.user.email ?? "", phone: this.user.phone ?? "" };
+  }
+}
+
+// Usage
+
+const user = new User({
+  firstName: "Ahmad",
+  lastName: "Jafari",
+  birthday: new Date(1999, 1, 1, 0, 0, 0, 0),
+  skills: { TypeScript: 4, JavaScript: 3, OOP: 4, CSharp: 2, Java: 1 },
+  email: "a99jafari@gmail.com",
+  phone: "+98 930 848 XXXX",
+});
+
+// const resume = ResumeServiceApi.generateResume(user); |-> Type Error!
+
+const standardUser = new UserAdapter(user);
+const resume = ResumeServiceApi.generateResume(standardUser); // OK!
+
+console.log(resume); // Output: Resume of Ahmad Jafari
